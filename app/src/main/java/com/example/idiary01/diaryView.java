@@ -85,12 +85,14 @@ public class diaryView extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which)                        // to remove the selected note once "Yes" is pressed
                             {
-                                diaries.add(title.getText().toString());
-                                arrayAdapter.notifyDataSetChanged();
+                                if(!title.getText().toString().equals("")) {
+                                    diaries.add(title.getText().toString());
+                                    arrayAdapter.notifyDataSetChanged();
 
-                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("PREFS", 0);
-                                HashSet<String> set = new HashSet<>(diaryView.diaries);
-                                sharedPreferences.edit().putStringSet("diaries", set).apply();
+                                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("PREFS", 0);
+                                    HashSet<String> set = new HashSet<>(diaryView.diaries);
+                                    sharedPreferences.edit().putStringSet("diaries", set).apply();
+                                }
                             }
                         })
 
