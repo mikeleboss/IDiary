@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/allen/AndroidStudioProjects/iDiary01/app/src/main/res/layout/activity_change_password.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/allen/AndroidStudioProjects/iDiary01/app/src/main/res/layout/activity_change_question.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/allen/AndroidStudioProjects/iDiary01/app/src/main/res/layout/activity_create_password.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/allen/AndroidStudioProjects/iDiary01/app/src/main/res/layout/activity_create_security_question.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/allen/AndroidStudioProjects/iDiary01/app/src/main/res/layout/activity_diary_view.xml" value="0.18802083333333333" />

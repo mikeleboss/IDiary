@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDiary01">
         <activity
+            android:name=".ChangeQuestion"
+            android:exported="false" />
+        <activity
+            android:name=".ChangePassword"
+            android:exported="false" />
+        <activity
             android:name=".settingsPage"
             android:exported="false" />
         <activity
