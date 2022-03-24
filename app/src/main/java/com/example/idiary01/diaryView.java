@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +27,7 @@ public class diaryView extends AppCompatActivity {
     static ArrayList<String> diaries = new ArrayList<String>();
     ArrayAdapter<String> arrayAdapter;
     Button settings, addDiary, reminders;
+    EditText searchBar;
 
 
 
@@ -36,6 +39,7 @@ public class diaryView extends AppCompatActivity {
         settings = (Button) findViewById(R.id.button7);
         addDiary = (Button) findViewById(R.id.button8);
         reminders = (Button) findViewById(R.id.button16);
+        searchBar = (EditText) findViewById(R.id.editTextDiarySearch);
         ListView listView = (ListView) findViewById(R.id.listView);
 
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("PREFS", 0);
@@ -65,6 +69,23 @@ public class diaryView extends AppCompatActivity {
                 intent.putExtra("noteID", diaries.get(position));
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                arrayAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 

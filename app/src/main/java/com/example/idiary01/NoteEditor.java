@@ -16,7 +16,7 @@ import java.util.HashSet;
 public class NoteEditor extends AppCompatActivity {
 
 
-    String entryID;
+    String entryID, noteID;
     EditText editTextEntryText;
     Button returner, save;
 
@@ -33,12 +33,16 @@ public class NoteEditor extends AppCompatActivity {
 
         Intent intent = getIntent();
         entryID = intent.getStringExtra("entryID");
+        noteID = intent.getStringExtra("noteID");
         editTextEntryText.setText(settings.getString(entryID, ""));
 
         returner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), entryView.class));
+
+                Intent intents = new Intent(getApplicationContext(), entryView.class);
+                intents.putExtra("noteID", noteID);
+                startActivity(intents);
                 finish();
             }
         });
