@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDiary01">
         <activity
+            android:name=".NoteEditor"
+            android:exported="false" />
+        <activity
+            android:name=".Reminders"
+            android:exported="false" />
+        <activity
             android:name=".ChangeQuestion"
             android:exported="false" />
         <activity

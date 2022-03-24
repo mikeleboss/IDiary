@@ -24,27 +24,31 @@ public class diaryView extends AppCompatActivity {
 
     static ArrayList<String> diaries = new ArrayList<String>();
     ArrayAdapter<String> arrayAdapter;
-    Button settings;
-    Button addDiary;
+    Button settings, addDiary, reminders;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_view);
 
-        Button settings = (Button) findViewById(R.id.button7);
-        Button addDiary = (Button) findViewById(R.id.button8);
+        settings = (Button) findViewById(R.id.button7);
+        addDiary = (Button) findViewById(R.id.button8);
+        reminders = (Button) findViewById(R.id.button16);
         ListView listView = (ListView) findViewById(R.id.listView);
-        ArrayList<String> exampleDiary = new ArrayList<String>();
+
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("PREFS", 0);
 
         HashSet<String> set = (HashSet<String>)sharedPreferences.getStringSet("diaries", null);
 
         if(set == null) {
             diaries.add("exampleDiary");
+            set = new HashSet<>(diaryView.diaries);
+            sharedPreferences.edit().putStringSet("diaries", set).apply();
         }
         else{
-            diaries = new ArrayList<>(set);
+            diaries = new ArrayList<String>(set);
         }
 
 
@@ -58,7 +62,7 @@ public class diaryView extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 Intent intent = new Intent(getApplicationContext(), entryView.class);
-                intent.putExtra("noteID", position);
+                intent.putExtra("noteID", diaries.get(position));
                 startActivity(intent);
                 finish();
             }
@@ -68,6 +72,14 @@ public class diaryView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(diaryView.this, settingsPage.class));
+                finish();
+            }
+        });
+
+        reminders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(diaryView.this, Reminders.class));
                 finish();
             }
         });
@@ -89,7 +101,7 @@ public class diaryView extends AppCompatActivity {
                                     diaries.add(title.getText().toString());
                                     arrayAdapter.notifyDataSetChanged();
 
-                                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("PREFS", 0);
+
                                     HashSet<String> set = new HashSet<>(diaryView.diaries);
                                     sharedPreferences.edit().putStringSet("diaries", set).apply();
                                 }
