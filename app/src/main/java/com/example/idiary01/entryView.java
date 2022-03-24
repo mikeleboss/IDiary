@@ -55,8 +55,10 @@ public class entryView extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+                String entryID = noteID + "." + entries.get(position);
                 Intent intents = new Intent(getApplicationContext(), NoteEditor.class);
-                intents.putExtra("entryID", position);
+                intents.putExtra("entryID", entryID);
+
                 startActivity(intents);
                 finish();
             }
