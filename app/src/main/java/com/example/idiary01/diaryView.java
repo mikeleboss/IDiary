@@ -72,6 +72,44 @@ public class diaryView extends AppCompatActivity {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id)
+            {
+                new AlertDialog.Builder(diaryView.this)                   // we can't use getApplicationContext() here as we want the activity to be the context, not the application
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Delete?")
+                        .setMessage("Are you sure you want to delete this diary?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)                        // to remove the selected note once "Yes" is pressed
+                            {
+                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("PREFS", 0);
+                                HashSet<String> entryDeleteSet = (HashSet<String>) sharedPreferences.getStringSet(diaries.get(position), null);
+                                ArrayList<String> entryDeleteList = new ArrayList<String>(entryDeleteSet);
+                                for(String s: entryDeleteList){
+                                    String entryID = diaries.get(position) + "." + s;
+                                    sharedPreferences.edit().remove(entryID).commit();
+                                }
+                                sharedPreferences.edit().remove(diaries.get(position)).commit();
+
+
+                                diaries.remove(position);
+                                arrayAdapter.notifyDataSetChanged();
+                                HashSet<String> set = new HashSet<>(diaryView.diaries);
+                                sharedPreferences.edit().putStringSet("diaries", set).apply();
+
+
+                            }
+                        })
+
+                        .setNegativeButton("No", null)
+                        .show();
+
+                return true;               // this was initially false but we change it to true as if false, the method assumes that we want to do a short click after the long click as well
+            }
+        });
+
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -113,8 +151,8 @@ public class diaryView extends AppCompatActivity {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Add Diary")
                         .setView(title)
-                        .setMessage("Are you sure you want to create this diary?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setMessage("Name the new diary")
+                        .setPositiveButton("confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which)                        // to remove the selected note once "Yes" is pressed
                             {
@@ -129,7 +167,7 @@ public class diaryView extends AppCompatActivity {
                             }
                         })
 
-                        .setNegativeButton("No", null)
+                        .setNegativeButton("cancel", null)
                         .show();
             }
 
