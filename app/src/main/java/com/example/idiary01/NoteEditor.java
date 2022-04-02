@@ -27,7 +27,7 @@ public class NoteEditor extends AppCompatActivity {
     String entryID, noteID;
     EditText editTextEntryText;
     Button returner, save, editColor, editFont;
-    int color = 1;
+    int color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,38 @@ public class NoteEditor extends AppCompatActivity {
         Intent intent = getIntent();
         entryID = intent.getStringExtra("entryID");
         noteID = intent.getStringExtra("noteID");
+        String colorID = entryID + ".color";
+        color = settings.getInt(colorID, 7);
         editTextEntryText.setText(settings.getString(entryID, ""));
+
+        if(color == 1) {
+            editTextEntryText.setTextColor(0xffBB86FC);
+
+        }
+        else if(color == 2) {
+            editTextEntryText.setTextColor(0xff6200EE);
+
+        }
+        else if(color == 3) {
+            editTextEntryText.setTextColor(0xff03DAC5);
+
+        }
+        else if(color == 4) {
+            editTextEntryText.setTextColor(0xffC00000);
+
+        }
+        else if(color == 5) {
+            editTextEntryText.setTextColor(0xff2450a4);
+
+        }
+        else if(color == 6) {
+            editTextEntryText.setTextColor(0xff228b22);
+
+        }
+        else{
+            editTextEntryText.setTextColor(0xff000000);
+
+        }
 
         returner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,41 +94,52 @@ public class NoteEditor extends AppCompatActivity {
                 String entry = editTextEntryText.getText().toString();
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString(entryID, entry);
+                editor.putInt(colorID, color);
                 editor.apply();
             }
         });
+
+
         editColor.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(color == 1) {
-                    editTextEntryText.setTextColor(0xffBB86FC);
-                    color++;
-                }
-                else if(color == 2) {
-                    editTextEntryText.setTextColor(0xff6200EE);
-                    color++;
-                }
-                else if(color == 3) {
-                    editTextEntryText.setTextColor(0xff03DAC5);
-                    color++;
-                }
-               else if(color == 4) {
-                    editTextEntryText.setTextColor(0xffC00000);
-                    color++;
-                }
-                else if(color == 5) {
-                    editTextEntryText.setTextColor(0xff2450a4);
-                    color++;
-                }
-                else if(color == 6) {
-                    editTextEntryText.setTextColor(0xff228b22);
+            public void onClick(View view){
+                if(color < 7) {
                     color++;
                 }
                 else{
-                    editTextEntryText.setTextColor(0xff000000);
                     color = 1;
                 }
+
+                if(color == 1) {
+                    editTextEntryText.setTextColor(0xffBB86FC);
+
+                }
+                else if(color == 2) {
+                    editTextEntryText.setTextColor(0xff6200EE);
+
+                }
+                else if(color == 3) {
+                    editTextEntryText.setTextColor(0xff03DAC5);
+
+                }
+                else if(color == 4) {
+                    editTextEntryText.setTextColor(0xffC00000);
+
+                }
+                else if(color == 5) {
+                    editTextEntryText.setTextColor(0xff2450a4);
+
+                }
+                else if(color == 6) {
+                    editTextEntryText.setTextColor(0xff228b22);
+
+                }
+                else{
+                    editTextEntryText.setTextColor(0xff000000);
+
+                }
             }
+
         });
 
         editFont.setOnClickListener(new View.OnClickListener() {
