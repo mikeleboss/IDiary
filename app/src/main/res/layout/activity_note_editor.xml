@@ -6,19 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".NoteEditor">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEntryText">
+
+        <ImageView
+            android:id="@+id/imageToUpload"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/uploadImage"
+            android:layout_width="237dp"
+            android:layout_height="wrap_content"
+            android:text="upload Image" />
+    </LinearLayout>
+
     <EditText
         android:id="@+id/editTextEntryText"
-        android:layout_width="0dp"
-        android:layout_height="512dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="410dp"
+        android:layout_height="324dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Entry"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/button26" />
 
     <Button
         android:id="@+id/button19"
@@ -51,4 +71,5 @@
         android:text="Change Font"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
